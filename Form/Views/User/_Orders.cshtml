@@ -1,0 +1,36 @@
+﻿
+
+@model List<Form.Models.Order>
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Заказы</h2>
+
+<div id="orders"></div>
+<table>
+    <th>Наименование</th>
+    <th>Количество</th>
+    <th>Цена</th>
+    <th>Итого</th>
+    @{
+
+        for (int i = 0; i< Model.Count;i++)
+        {
+           @Html.HiddenFor(x => x[i].Id)
+            <tr>
+                @{
+                    var total = Model[i].Price * Model[i].Amount;
+                    <td>@Html.EditorFor(x => x[i].Position)</td>
+                    <td>@Html.EditorFor(x => x[i].Amount)</td>
+                    <td>@Html.EditorFor(x => x[i].Price)</td>
+                    <td>@total</td>
+                }
+
+
+            </tr>
+                    }
+
+    }
+</table>

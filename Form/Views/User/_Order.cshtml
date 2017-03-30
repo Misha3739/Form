@@ -1,0 +1,14 @@
+﻿@model Form.Models.Order
+
+@Html.HiddenFor(x => x.Id)
+<tr>
+    @{
+        var total = Model.Price * Model.Amount;
+        <td>@Html.EditorFor(x => x.Position,new {@name = Model.Position})</td>
+        <td>@Html.EditorFor(x => x.Amount, new { @name = Model.Amount })</td>
+        <td>@Html.EditorFor(x => x.Price, new { @name = Model.Price })</td>
+        <td>@total</td>
+    }
+
+
+</tr>

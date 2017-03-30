@@ -1,0 +1,61 @@
+﻿@using Form.Models;
+
+@model UserModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<h2>User</h2>
+
+
+<div id="form">
+    @using (Html.BeginForm("Save", "User", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(x => x.Id)
+
+        <pre>
+    <p>Фамилия  @Html.TextBoxFor(x => x.LastName, new { @id="textId",@class = "custom-text-box" })</p>
+    <!--<p><button id="symbolBtn" type="button">AddSymbol</button></p>-->
+    <p>Имя      @Html.TextBoxFor(x => x.FirstName,new { @class = "custom-text-box" })</p>
+    <p>Отчество @Html.TextBoxFor(x => x.Patronimic, new { @class = "custom-text-box" })</p>
+</pre>
+
+
+        <table>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Итого</th>
+            @{
+
+                for (int i = 0; i < Model.Orders.Count; i++)
+                {
+                    @Html.HiddenFor(x => x.Orders[i].Id)
+                    <tr>
+                        @{
+
+                            var total = Model.Orders[i].Price * Model.Orders[i].Amount;
+                            string total_id = $"total_{i}", price_id = $"price_{i}", amoint_id = $"amount_{i}";
+                            <td>@Html.TextBoxFor(x => x.Orders[i].Position ,new{ @class = "table-input" })</td>
+                            <td id=@amoint_id>@Html.TextBoxFor(x => x.Orders[i].Amount, new { @class = "table-input", type = "number" })</td>
+                            <td id=@price_id>@Html.TextBoxFor(x => x.Orders[i].Price,new { @class = "table-input", type = "number" })</td>
+                            <td id=@total_id>@total</td>
+                        }
+
+
+                    </tr>
+                }
+
+            }
+        </table>
+
+        <input type ="submit" value="Сохранить" />
+    }
+</div>
+
+<script src="~/Scripts/IndexScript.js" async></script>
+
